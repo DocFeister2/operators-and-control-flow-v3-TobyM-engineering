@@ -53,34 +53,78 @@ int main() {
   // TODO: INPUT VALIDATION
   // Print error statements if any of the inputs or combinations of inputs are invalid!
 
+  //Input validation
   if (quantity <= 0) {
     cout << "Invalid quantity entered! Quantity must be greater than zero. Aborting." << endl; // (this is an example of how I'd like you to print error messages for this lab)
     return 1; // abort
   }
 
-  if ((product_type == "banana") && !(unit_type == "single" || unit_type == "bunch")) {
-    cout << "Invalid unit type entered! For bananas, the unit type must be 'single' or 'bunch'." << endl;
-    return 1; // abort
+  if (!(product_type == "banana" || product_type == "apple" || product_type == "watermelon")) {
+    cout << "Invalid product entered, Please enter 'banana', 'apple', or 'watermelon'." <<endl;
+    return 1;
   }
-  //...
 
-  // TODO: COMPUTE THE COST OF THIS PURCHASE
-  if ((product_type == "banana") && (unit_type == "single")) {
-    total_cost = quantity * (price_banana / 100.); // total cost in dollars
-    //...
+  if(!(accept_sale == "y" || accept_sale == "n")) {
+    cout << "Invalid promotion response, Please enter 'y' or 'n'." <<endl;
+    return 1;
   }
-  if (product_type == "banana") && (unit_type == "bunch")) {
-    total_cost = quantity *   //...
-    //...
+  if (product_type == "banana" && !(unit_type == "single" || unit_type == "bunch")) {
+    cout << "Invalid unit entered, for bananas Please enter 'single', or 'bunch'." <<endl;
+    return 1;
   }
-  //...
-  //...
+ if (product_type == "apple" && !(unit_type == "single" || unit_type == "bag")) {
+    cout << "Invalid unit entered, for apples Please enter 'single', or 'bag'." <<endl;
+    return 1;
+  }
+  if (product_type == "watermelon" && unit_type != "single") {
+    cout << "Invalid unit entered, Please enter 'single' for watermelon" <<endl;
+    return 1;
+  }
 
+// add one more unit if the user accepts promotion
 
-  // TODO: APPLY THE OPTIONAL DISCOUNT TO FINAL TOTAL COST
-  //...
+if(accept_sale == "y"){
+  quantity++;
+}
 
-      
+//compute the total cost and the cost per fruit
+
+if(product_type == "banana" && unit_type == "single"){
+  total_cost = quantity * (price_banana / 100.0);
+  item_cost = total_cost / quantity;
+}
+else if (product_type == "banana" && unit_type == "bunch"){
+  const int bananas_per_bunch = 7;
+
+ total_cost = quantity * price_bunch_bananas;
+  item_cost = total_cost / (quantity * bananas_per_bunch);
+}
+else if (product_type == "apple" && unit_type == "single"){
+  total_cost = quantity * (price_apple / 100.0);
+  item_cost = total_cost / quantity;
+}
+else if (product_type == "apple" && unit_type == "bag"){
+  const int apples_per_bag = 8;
+
+ total_cost = quantity * price_bag_apples;
+  item_cost = total_cost / (quantity * apples_per_bag);
+}
+else if (product_type == "watermelon" && unit_type == "single"){
+  total_cost = quantity * (price_watermelon / 100.0);
+  item_cost = total_cost / quantity;
+}
+
+//applying the 10 percent discount if promotion accepted
+
+if(accept_sale == "y"){
+  total_cost *= 0.90;
+  item_cost *= 0.90;
+}
+
+//display money values with 2 decimals
+
+cout.setf(ios::fixed);
+cout.precision(2);
   // DO NOT EDIT BELOW THIS LINE!
 
   // TELL USER THEIR FINAL TOTAL COST, AND COST PER FRUIT ITEM
